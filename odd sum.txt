@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{int T,i,j,a,b;
+cin>>T;
+for(j=1;j<=T;j++)
+{  int sum=0;
+  cin>>a>>b;
+if(a%2==0&& b%2==0)
+    {for(i=a+1;i<b;i=i+2)
+    sum=sum+i;
+    }
+ if(a%2!=0 && b%2!=0)
+ {for(i=a;i<=b;i=i+2)
+   sum=sum+i;}
+   if(a%2==0 && b%2!=0)
+   {for(i=a+1;i<=b;i=i+2)
+     sum=sum+i;
+    }
+    if(a%2!=0&&b%2==0)
+    {for(i=a;i<b;i=i+2)
+      sum=sum+i;
+
+    }
+ cout<<"Case"<<" "<<j<<":"<<" "<<sum<<endl;
+ }
+return 0;
+}

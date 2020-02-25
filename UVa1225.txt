@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int>a;
+int main()
+{
+    int T,N,p=0,l;
+    cin>>T;
+    while(T--)
+    {
+        cin>>N;
+        int j=0;
+        for(int k=1; k<=N; k++)
+        {
+            p=k;
+            if(p<10)
+            {
+                j=p;
+                a.push_back(j);
+            }
+            else
+            {
+                while(p!=0)
+                {
+                    j=p%10;
+                    a.push_back(j);
+                    if((p/10)<10)
+                    {
+                        l=p/10;
+
+                        a.push_back(l);
+                        p=0;
+                    }
+                    else
+                        p/=10;
+                }
+            }
+        }
+        int c=0,c1=0,c2=0,c3=0,c4=0,c5=0,c6=0,c7=0,c8=0,c9=0;
+        for(int i=0; i<a.size(); i++)
+        {
+            if(a[i]==0)
+                c++;
+            if(a[i]==1)
+                c1++;
+            if(a[i]==2)
+                c2++;
+            if(a[i]==3)
+                c3++;
+            if(a[i]==4)
+                c4++;
+            if(a[i]==5)
+                c5++;
+            if(a[i]==6)
+                c6++;
+            if(a[i]==7)
+                c7++;
+            if(a[i]==8)
+                c8++;
+            if(a[i]==9)
+                c9++;
+        }
+        a.clear();
+        cout<<c<<" "<<c1<<" "<<c2<<" "<<c3<<" "<<c4<<" "<<c5<<" "<<c6<<" "<<c7<<" "<<c8<<" "<<c9<<endl;
+    }
+    return 0;
+}

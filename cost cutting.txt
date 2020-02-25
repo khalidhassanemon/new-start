@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{int T,i,j;
+long int x,y,z;
+cin>>T;
+for(i=1;i<=T;i++)
+{   cin>>x>>y>>z;
+    if(x<y && y<z)
+     cout<<"Case"<<" "<<i<<":"<<" "<<y<<endl;
+    if(x<z && z<y)
+        cout<<"Case"<<" "<<i<<":"<<" "<<z<<endl;
+   if(y<x && x<z)
+          cout<<"Case"<<" "<<i<<":"<<" "<<x<<endl;
+     if(y<z && z<x)
+      cout<<"Case"<<" "<<i<<":"<<" "<<z<<endl;
+        if(x>y&&y>z)
+         cout<<"Case"<<" "<<i<<":"<<" "<<y<<endl;
+    if(z<x&&x<y)
+              cout<<"Case"<<" "<<i<<":"<<" "<<x<<endl;
+}
+return 0;
+}

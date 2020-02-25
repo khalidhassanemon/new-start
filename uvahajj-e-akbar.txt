@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int i,j=1;
+    char a[100];
+    while(cin>>a)
+    {if(strcmp(a,"Hajj")==0)
+        printf("Case %d: Hajj-e-Akbar\n",j++);
+    if(strcmp(a,"Umrah")==0)
+    printf("Case %d: Hajj-e-Asghar\n",j++);
+    if(strcmp(a,"*")==0)
+        break;
+    }
+    return 0;
+}
