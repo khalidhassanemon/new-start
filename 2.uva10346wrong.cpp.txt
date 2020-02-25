@@ -1,0 +1,16 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{ int n,k,a,x;
+    while(cin>>n>>k)
+    {   a=n;
+        x=n;
+        while(x>=k)
+        {
+            x=x/k;
+            a+=x;
+        }
+        cout<<a<<endl;
+    }
+    return 0;
+}

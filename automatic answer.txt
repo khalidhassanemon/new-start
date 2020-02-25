@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{int t,i,x,y,z,n,b,a;
+cin>>t;
+for(i=1;i<=t;i++)
+{cin>>n;
+x=(n*567)/9;
+y=(x+7492)*235;
+z=(y/47)-498;
+b=z/10;
+a=abs(b%10);
+cout<<a<<endl;
+}
+return 0;}

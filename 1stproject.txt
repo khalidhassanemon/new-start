@@ -1,0 +1,693 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<ctype.h>
+#include<windows.h>
+
+int login_exit;
+/// All Function declaration part.....
+///------------------------------------
+///some checking function....
+void check_code(char[]);
+
+int check(char[]);
+
+///----------------------------
+void main_menu();
+///main_menu sub function....
+void m_bill();
+void m_add();
+void m_edit();
+void m_display();
+void m_search();
+void m_delete();
+void m_exit();
+void fordelay(int j);
+void BUBT();
+void time_date();
+///sub menu of main menu...
+void s_m_display_presenting();
+void s_m_search();
+void check_code(char c[]);
+int check(char x[15]);
+
+/* for cursor position */
+COORD coord= {0,0}; // this is global variable
+
+
+void gotoxy(int x,int y)
+{
+    coord.X=x;
+    coord.Y=y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+}
+
+typedef struct  /// for product details template struct...
+{
+    char name[15],code[4];
+    float rate;
+    int quantity;
+} rec;
+
+rec item;   /// making an object....
+/// For showing time and date...
+
+void time_date()
+{
+   gotoxy(45,11);
+   printf("Date is: %s\n",__DATE__);
+   gotoxy(45,12);
+   printf("Time is: %s\n",__TIME__);
+}
+
+/// Main function is starting from here:
+
+int main()
+{
+    char pass[13],password[13]="Dark_Knight";
+    int i=0;
+    BUBT();
+    time_date();
+    printf("\n\n\t\tEnter the password to login:");
+    scanf("%s",pass);
+    if (strcmp(pass,password)==0)
+        {system("color a");printf("\n\nPassword Match!\nLOADING");
+        for(i=0;i<=6;i++)
+        {
+            fordelay(100000000);
+            printf(".");
+        }
+                system("cls");
+           main_menu();
+        }
+    else
+        {
+            login_try:
+            system("color c");
+            printf("\n\nWrong password!!\a\a\a");
+            printf("\nEnter 1 to try again and 0 to exit:");
+            scanf("%d",&login_exit);
+            if (login_exit==1)
+                    {
+
+                        system("cls");
+                        main();
+                    }
+
+            else if (login_exit==0)
+                    {
+                    system("cls");
+                    return 0;
+                    }
+            else
+                {
+                    printf("\nInvalid!");
+                    fordelay(1000000000);
+                    fordelay(1000000000);
+                    system("cls");
+                    goto login_try;
+                }
+        }
+
+    return 0;
+}
+
+
+///Showing BUBT animation....
+
+void BUBT()
+{
+    system("color B");
+
+    printf("\t\t######     ##     ##   ######    ##########  \n");fordelay(200000000);
+    printf("\t\t##    ##   ##     ##   ##    ##      ##      \n");fordelay(200000000);
+    printf("\t\t##    ##   ##     ##   ##    ##      ##      \n");fordelay(200000000);
+    printf("\t\t##    ##   ##     ##   ##    ##      ##      \n");fordelay(200000000);
+    printf("\t\t#######    ##     ##   #######       ##      \n");fordelay(200000000);
+    printf("\t\t##    ##   ##     ##   ##    ##      ##      \n");fordelay(200000000);
+    printf("\t\t##    ##   ##     ##   ##    ##      ##      \n");fordelay(200000000);
+    printf("\t\t##    ##    ##   ##    ##    ##      ##      \n");fordelay(200000000);
+    printf("\t\t######       #####     ######        ##      \n");
+
+}
+
+/// Function description...
+///-------------------------------
+
+/// for delay function
+void fordelay(int j)
+{   int i,k;
+    for(i=0;i<j;i++)
+         k=i;
+}
+
+/// For main menu...
+
+void main_menu()
+{
+
+    FILE *f;
+    f=fopen("record1.txt","r");
+    fclose(f);
+
+    try_again:
+    system("cls");
+    system("color D");
+    time_date();
+    int m_choice;
+    printf("\n\n\n\t\t1. Calculate Bill\n\t\t2. Add Goods\n\t\t3. Edit Goods\n\t\t4. Display All\n\t\t5. Search\n\t\t6. Delete Goods\n\t\t0. Exit\n\n");
+    printf("\n\n\tEnter Your Choice To Go: ");
+    scanf("%d",&m_choice);
+    switch(m_choice)
+    {
+    case 0:
+        m_exit();
+        break;
+    case 1:
+        m_bill();
+        break;
+    case 2:
+        m_add();
+        break;
+    case 3:
+        m_edit();
+        break;
+    case 4:
+        m_display();
+        break;
+    case 5:
+        m_search();
+        break;
+    case 6:
+        m_delete();
+        break;
+    default:
+        {
+            d_try:
+            system("cls");
+            system("color c");
+            printf("\n\n\t\tInvalid.....!\n\n\t\tTry again for 1 or 0 to exit.\n");
+            int a;
+            scanf("%d",&a);
+            if(a==1) goto try_again;
+            else if(a==0) m_exit();
+            else goto d_try;
+
+        }
+        }
+}
+/*
+    sub menu function is starting from here: -------
+    Team Member: Hasan Al Mahmud -> Samiul Islam -> Haseeb Rahman -> Khaled Emon...
+
+*/
+
+
+void m_bill()
+{
+    char x[4]= {0};
+    int j=29,q=0,size=0,i=1;
+    float total=0,gtotal=0;
+    FILE *file;
+    file=fopen("record.txt","r+b");
+    rewind(file);
+    system("cls");
+    s_m_bill_show();
+    gotoxy(26,15);
+    printf("Enter  \"end\" to finish input: ");
+    while(1)
+    {
+        gotoxy(25,18);
+        printf("                    ");
+        gotoxy(25,19);
+        printf("                    ");
+        gotoxy(25,18);
+        printf("Enter item code: ");
+        scanf("%s",x);
+        if(strcmp(x,"end")==0)
+            break;
+        gotoxy(25,19);
+        printf("Enter quantity: ");
+        scanf("%d",&q);
+        rewind(file);
+        while(fread(&item,sizeof(item),1,file))
+        {
+            if((strcmp(item.code,x)==0))
+            {
+                total=item.rate*q;
+                gotoxy(11,j);
+                printf("%4d",i);
+                printf("%9s",item.name);
+                printf("%13d",q);
+                printf("%15.2f",item.rate);
+                printf("%13.2f",total);
+                gtotal=gtotal+total;
+                size=sizeof(item);
+                item.quantity=item.quantity-q;
+                j+=2;
+                i++;
+                fseek(file,-size,SEEK_CUR);
+                fwrite(&item,sizeof(item),1,file);
+                break;
+            }
+        }
+    }
+    if(gtotal!=0)
+    {
+        gotoxy(30,j+5);
+        printf("TOTAL AMOUNT = Tk. %6.2f",gtotal);
+    }
+    fclose(file);
+    getch();
+    main_menu();
+}
+
+/// sub function of bill  ....
+
+void s_m_bill_show()
+{
+    int i;
+    gotoxy(20,10);
+    for (i=1; i<=10; i++)
+        printf("*");
+    printf(" * BUBT CAFETERIA * ");
+    for (i=1; i<=10; i++)
+        printf("*");
+    printf("\n\n");
+
+    gotoxy(32,25);
+    printf("CUSTOMER'S BILL") ;
+
+    gotoxy(13,27);
+    printf("SN.   Item Name     Quantity     Rate          Total");
+
+}
+
+void m_add()
+{
+    FILE *file;
+    char c[4],x[12];
+    system("cls");
+
+    gotoxy(30,7);
+    printf("Enter new record(Y/N)?");
+    while(toupper(getche())=='Y')
+    {
+        system("cls");
+        file=fopen("record.txt","ab");
+        check_code(c);
+        strcpy(item.code,c);
+        gotoxy(40,6);
+        printf("Enter rate of the item:");
+        scanf("%f",&item.rate);
+        gotoxy(40,7);
+        printf("Enter quantity of the item:");
+        scanf("%d",&item.quantity);
+        gotoxy(40,8);
+        printf("Enter name of the item:");
+        scanf("%s",item.name);
+        fseek(file,0,SEEK_END);
+        fwrite(&item,sizeof(item),1,file);
+        fclose(file);
+        system("cls");
+        gotoxy(30,7);
+        printf("Enter new record(Y/N)?");
+
+    }
+    main_menu();
+}
+void m_edit()
+{
+    int flag=0,choice;
+    char x[4],y[4];
+    FILE *file;
+    int size;
+    system("cls");
+    gotoxy(35,18);
+    printf("EDIT RECORDS");
+    gotoxy(25,23);
+    printf("Enter item code: ");
+    scanf("%s",x);
+    flag=check(x);
+    if(flag==0)
+    {
+        file=fopen("record.txt","r+b");
+        rewind(file);
+        while (fread(&item,sizeof(item),1,file))
+        {
+            if(strcmp(item.code,x)==0)
+            {
+                gotoxy(25,27);
+                printf("Code       : %s",item.code);
+                gotoxy(25,28);
+                printf("Name       : %s",item.name);
+                gotoxy(25,29);
+                printf("Rate       : %g",item.rate);
+                gotoxy(25,30);
+                printf("Quantity   : %d",item.quantity);
+                gotoxy(25,33);;
+                printf("Do you want to edit this record?(y/n): ");
+                fflush(file);
+                if(toupper(getche())=='Y')
+                {
+                    t:
+                    gotoxy(25,34);
+                    printf("1 - Edit name ");
+                    gotoxy(25,35);
+                    printf("2 - Edit code ");
+                    gotoxy(25,36);
+                    printf("3 - Edit rate ");
+                    gotoxy(25,37);
+                    printf("4 - Edit quantity ");
+                    gotoxy(25,39);  ;
+                    printf("Enter your choice to go (1, 2, 3, 4): ");
+                    scanf("%d",&choice);
+                    switch(choice)
+                    {
+                    case 1:
+                        system("cls");
+                        gotoxy(35,18);
+                        printf("EDIT RECORDS");
+                        gotoxy(25,24);
+                        printf("Enter new name: ");
+                        scanf("%s",item.name);
+                        size=sizeof(item);
+                        fseek(file,-size,SEEK_CUR);
+                        fwrite(&item,sizeof(item),1,file);
+                        break;
+                    case 2:
+                        system("cls");
+                        gotoxy(35,18);
+                        printf("EDIT RECORDS");
+                        gotoxy(25,24);
+                        check_code(y);
+                        strcpy(item.code,y);
+                        size=sizeof(item);
+                        fseek(file,-size,SEEK_CUR);
+                        fwrite(&item,sizeof(item),1,file);
+                        break;
+                    case 3:
+                        system("cls");
+                        gotoxy(35,18);
+                        printf("EDIT RECORDS");
+                        gotoxy(25,24);
+                        printf("Enter new rate: ");
+                        scanf("%f",&item.rate);
+                        size=sizeof(item);
+                        fseek(file,-size,SEEK_CUR);
+                        fwrite(&item,sizeof(item),1,file);
+                        break;
+                    case 4:
+                        system("cls");
+                        gotoxy(35,18);
+                        printf("EDIT RECORDS");
+                        gotoxy(25,24);
+                        printf("Enter new quantity: ");
+                        scanf("%d",&item.quantity);
+                        size=sizeof(item);
+                        fseek(file,-size,1);
+                        fwrite(&item,sizeof(item),1,file);
+                        break;
+                    default:
+                        system("cls");
+                        gotoxy(25,24);
+                        printf("Invalid......!\nTry Again");
+                        goto t;
+                    }
+                    gotoxy(27,30);
+                    printf("--- item edited---");
+                    break;
+                }
+            }
+        }
+    }
+    if (flag==1)
+    {
+        gotoxy(32,30);
+        printf("Item does not exist.");
+        gotoxy(36,32);
+        printf("TRY ABGAIN");
+    }
+    getch();
+    fclose(file);
+    main_menu();
+}
+void m_display()
+{
+    int i,j=1;
+    FILE *file;
+    s_m_display_presenting();
+    file=fopen("record.txt","rb");
+    rewind(file);
+    i=26;
+    fflush(file);
+    while(fread(&item,sizeof(item),1,file))
+    {
+        display(&item,i,j);
+        i++;
+        j++;
+        if ((j%20)==0)
+        {
+            gotoxy(27,47);
+            printf("Press any key to see more...........");
+            getch();
+            system("cls");
+            s_m_display_presenting();
+            i=26;
+            continue;
+        }
+    }
+    getch();
+    if (i==26)
+    {
+        gotoxy(24,30);
+        printf("-- no articles found --");
+    }
+    getch();
+    fclose(file);
+    main_menu();
+
+}
+void m_search()
+{
+    gotoxy(30,7);
+    system("cls");
+
+    printf("Do you want to search(Y/N)?");
+    while(toupper(getche())=='Y')
+    {
+        s_m_search();
+    }
+
+
+    main_menu();
+}
+///sub menu of search....
+void s_m_search()
+{
+    int i,j=1;
+    char x[4]= {0};
+    FILE *file;
+    s_m_display_presenting();
+    file=fopen("record.txt","rb");
+    rewind(file);
+    i=26;
+    gotoxy(16,20);;
+    printf("Enter item code: ");
+    scanf("%s",x);
+    fflush(file);
+    while(fread(&item,sizeof(item),1,file))
+    {
+        if((strcmp(item.code,x)==0))
+        {
+            display(&item,i,j);
+            i++;
+            j++;
+            break;
+        }
+    }
+    if (i==26)
+    {
+        gotoxy(28,30);
+        printf("\a\a\aNo item found....! ");
+    }
+    getch();
+    fclose(file);
+    m_search();
+}
+void s_m_display_presenting()
+{
+    int i;
+    system("cls");
+    gotoxy(20,10);
+    for (i=1; i<=10; i++)
+        printf("*");
+    printf(" * BUBT CAFETERIA * ");
+    for (i=1; i<=10; i++)
+        printf("*");
+    printf("\n\n");
+    gotoxy(30,11);
+    printf("University Store");
+
+    gotoxy(32,17);
+    printf("RECORDS") ;
+
+    gotoxy(18,23);
+    printf ("SN   Item Name   Item Code      Rate     Quantity");
+}
+void display(rec *item,int i,int j)
+{
+    gotoxy(16,i);
+    printf("%4d",j);
+    printf("%9s",item->name);
+    printf("%12s",item->code);
+    printf("%14.2f",item->rate);
+    printf("%11d",item->quantity);
+}
+void m_delete()
+{
+    int flag;
+    char x[15];
+    FILE *file,*file1,*file2;
+    system("cls");
+    gotoxy(29,18);
+    printf("DELETE ITEAM's");
+    gotoxy(27,27);
+    printf("Enter item code: ");
+    scanf("%s",x);
+    flag=check(x);
+    //printf("\n\ncode : %d\n\n",flag);
+    if(flag==0)
+    {
+        file1=fopen("record1.txt","ab");
+        file=fopen("record.txt","rb");
+        rewind(file);
+        while (fread(&item,sizeof(item),1,file))
+        {
+            if(strcmp(item.code,x)!=0) fwrite(&item,sizeof(item),1,file1);
+        }
+        gotoxy(27,29);
+        printf("\a\a\a---item deleted---");
+        //rename("record.txt","rem.txt");
+        fclose(file);
+
+        system("del /f record.txt");
+        fclose(file1);
+        system("rename record1.txt record.txt");
+        file2=fopen("record1.txt","r");
+        fclose(file2);
+        //remove("rem.txt");
+       // rename("record1.txt","record.txt");
+    }
+    else if (flag==1)
+    {
+        gotoxy(25,29);
+        printf("\a\a\a---Item does not exist---");
+        gotoxy(30,31);
+        printf("TRY AGAIN");
+        //fclose(file1);
+        //fclose(file);
+    }
+    getch();/// Ask mam to solve the portion...
+    //printf("\nhello\n");  ///why this line shows us an error....???
+    //fclose(file1);
+    //fclose(file);
+    main_menu();
+}
+
+void m_exit()
+{
+    char team[15]="Dark Knight";
+    int t;
+    system("cls");
+    gotoxy(40,4);
+    printf("Many many thanks to use our program\n");
+    gotoxy(40,5);
+    printf("This program program developed by team:\n\n");
+    gotoxy(40,8);
+    for(int i=0;i<11;i++)
+    {
+        system("color B");
+        fordelay(200000000);
+        printf("%c",team[i]);
+        system("color c");
+        fordelay(100000000);
+        system("color D");
+    }
+
+    printf("\n");
+    system("color a");
+    gotoxy(40,11);
+    fordelay(500000000);
+    printf("Hasan Al Mahmud  -> 18192103239\n\n");
+    gotoxy(40,12);fordelay(400000000);
+    printf("Shamiul Islam    -> 18192103241\n\n");
+    gotoxy(40,13);fordelay(300000000);
+    printf("Khaled Hasan     -> 18192103266\n\n");
+    gotoxy(40,14);fordelay(300000000);
+    printf("Haseeb Rahman    -> 18192103276\n\n");
+    getch();
+}
+///----------------------
+
+//check function description...
+/// that we used when we add a new record...
+/// is that new code already exist or not....
+
+void check_code(char c[])
+{
+    int flag;
+    FILE *file;
+    file=fopen("record.txt","rb");
+    while(1)
+    {
+        system("cls");
+        gotoxy(45,3);
+        printf(" ADD ITEMS MENU ");
+        flag=1;
+        rewind(file);
+        gotoxy(40,5);
+        system("color a");
+        printf("Enter new code of the food:");
+        scanf(" %[^\n]",c);
+        while(fread(&item,sizeof(item),1,file)==1)
+        {
+            if (strcmp(c,item.code)==0)
+            {
+                system("cls");
+                system("color c");
+                flag=0;
+                gotoxy(26,15);
+                printf("Food Code Already Exists....!\a\a\a");
+                gotoxy(26,16);
+                printf("Press any key to enter again ");
+                getch();
+                break;
+            }
+        }
+        if (flag==1)
+            break;
+    }
+}
+
+/// for code exist or not... it just return 1 or 0...
+/// or true or false....
+
+int check(char x[15])
+{
+    FILE *file2;
+    int flag=1;
+    file2=fopen("record.txt","rb");
+    rewind(file2);
+    while (fread(&item,sizeof(item),1,file2))
+    {
+        if(strcmp(item.code,x)==0)
+        {
+            flag=0;
+            break;
+        }
+    }
+    fclose(file2);
+    return flag;
+}

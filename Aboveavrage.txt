@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{int i,j,n,T,sum,cnt,a[10010],avg;
+  double x;
+   scanf("%d",&n);
+    while(n--)
+     { cin>>T;
+        {   sum=0;
+            for(j=1; j<=T; j++)
+            {   scanf("%d",&a[j]);
+                sum+=a[j];
+            }
+            avg=sum/T;
+            cnt=0;
+            for(i=1; i<=T; i++)
+            {  if(a[i]>avg)
+                    cnt++;
+            }
+           x=((double)cnt/T);
+        printf("%.3lf%%\n",x*100.0);
+        }
+     }
+    return 0;
+}
