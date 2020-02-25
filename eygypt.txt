@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{int i,x,y,z,a,b,c;
+for(i=1;;i++)
+{cin>>x>>y>>z;
+a=x*x;
+b=y*y;
+c=z*z;
+if(x==0&&y==0&&z==0)
+break;
+else
+{if(a+b==c||a+c==b||b+c==a)
+cout<<"right"<<endl;
+else
+cout<<"wrong"<<endl;
+}}
+}
