@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int a,b;
+    while(cin>>a>>b)
+    {
+        int max=0,p=0,q=0,n=0,k=0,x=0,y=0;
+
+        vector<int>v;
+        if(a>b)
+        {
+            x=a;
+            y=b;
+        }
+        else
+        {
+            x=b;
+            y=a;
+        }
+        for(int i=y ; i<=x ; i++)
+        {
+            n=i;
+            v.push_back(n);
+            while(n>1)
+            {
+                if(n%2==0)
+                {
+                    k=n/2;
+                    v.push_back(k);
+                }
+                else if(n%2!=0)
+                {
+                    q=(3*n);
+                    k=q+1;
+                    v.push_back(k);
+                }
+                n=k;
+            }
+            p=v.size();
+
+            if(p>max)
+                max=p;
+            v.clear();
+
+        }
+        cout<<a<<" "<<b<<" "<<max<<endl;
+    }
+    return 0;
+}
