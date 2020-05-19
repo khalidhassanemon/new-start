@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+
+#include<map>
+
+using namespace std;
+
+map<char,double>m;
+
+int main()
+
+{
+
+    int t;
+
+    cin>>t;
+
+    while(t--)
+
+    {
+
+        int n,l=0;
+
+        cin>>n;
+
+        char ch;
+
+        double r;
+
+        for(int i=0; i<n; i++)
+
+        {
+
+            cin>>ch>>r;
+
+            m[ch]=r;
+
+        }
+
+        int h;
+
+        cin>>h;
+
+        double sum=0;
+
+        string s;
+
+        cin.ignore();
+
+        for(int i=0; i<h; i++)
+
+        {
+
+            getline(cin,s);
+
+            l=s.length();
+
+            for(int j=0; j<l; j++)
+
+            {
+
+                sum+=m[s[j]];
+
+            }
+
+        }
+
+        printf("%.2lf$\n",sum/100);
+
+        m.clear();
+
+    }
+
+    return 0;
+}
