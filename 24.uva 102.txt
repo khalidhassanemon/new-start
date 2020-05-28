@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int a[3],b[3],c[3],ara[6]= {0},i;
+    while(cin>>a[0]>>b[0]>>c[0]>>a[1]>>b[1]>>c[1]>>a[2]>>b[2]>>c[2])
+    {
+        ara[0]=b[0]+c[0]+a[1]+b[1]+a[2]+c[2];
+        ara[1]=b[0]+c[0]+a[1]+c[1]+a[2]+b[2];
+        ara[2]=a[0]+b[0]+b[1]+c[1]+a[2]+c[2];
+        ara[3]=a[0]+b[0]+a[1]+c[1]+b[2]+c[2];
+        ara[4]=a[0]+c[0]+b[1]+c[1]+a[2]+b[2];
+        ara[5]=a[0]+c[0]+a[1]+b[1]+b[2]+c[2];
+        int min=ara[0];
+        for(i=1; i<6; i++)
+        {
+            if(min>ara[i])
+                min=ara[i];
+        }
+        while(1)
+        {
+            if(min==ara[0])
+            {
+                cout<<"BCG"<<" "<<min<<endl;
+                break;
+            }
+            if(min==ara[1])
+            {
+                cout<<"BGC"<<" "<<min<<endl;
+                break;
+            }
+            if(min==ara[2])
+            {
+                cout<<"CBG"<<" "<<min<<endl;
+                break;
+            }
+            if(min==ara[3])
+            {
+                cout<<"CGB"<<" "<<min<<endl;
+                break;
+            }
+            if(min==ara[4])
+            {
+                cout<<"GBC"<<" "<<min<<endl;
+                break;
+            }
+            if(min==ara[5])
+            {
+                cout<<"GCB"<<" "<<min<<endl;
+                break;
+            }
+        }
+
+    }
+    return 0;
+}
