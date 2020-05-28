@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+
+#include<math.h>
+
+using namespace std;
+
+int main()
+{
+    double n,p;
+
+    while(cin>>n>>p)
+    {
+        printf("%.lf\n",pow(p,1/n));
+    }
+
+    return 0;
+}
