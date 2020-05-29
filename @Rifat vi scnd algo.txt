@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int main(){
+//    freopen("input.txt","r",stdin);
+    int a,b,c=0,i,j,t,k,m,n,o,x,y,z,ar[100]={0};
+    cin>>n;
+    for(i=0;i<n;i++){
+        cin>>a;
+        ar[a]++;
+    }
+    for(i=0;i<n;i++){
+        if(ar[i]) c++;
+    }
+    cout<<c;
+ 
+    return 0;
+}
+ 
+ 
