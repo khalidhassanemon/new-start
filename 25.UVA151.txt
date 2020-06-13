@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool isoK(int n,int m)
+{
+    queue<int>x;
+    int a,result;
+    for(int i=1; i<=n; i++)
+    {
+        x.push(i);
+    }
+    while(!x.empty())
+    {
+        result=x.front();
+        x.pop();
+        for(int i=0; i<m-1; i++)
+        {
+            a=x.front();
+            x.push(a);
+            x.pop();
+        }
+
+    }
+    if(result==13)
+        return true;
+    else
+        return false;
+}
+int main()
+{
+    int n;
+    while(1)
+    {
+        cin>>n;
+        if(n==0)
+            return 0;
+        for(int i=1;; i++)
+        {
+            if(isoK(n,i)==true)
+            {
+                cout<<i<<endl;
+                break;
+            }
+        }
+    }
+    return 0;
+}
